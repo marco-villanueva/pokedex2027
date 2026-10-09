@@ -154,6 +154,20 @@ vigilar deriva documento/código y no reabrir alcance V1 sin decisión registrad
   `useOptimistic`; no-WebGL/no-libs explícitos. Nada implementado (V1
   cerrada, requiere propuesta SDD).
 
+## Deploy Cloudflare Pages (2026-10-09)
+
+- Proyecto `pokedex2027` creado con `cf` CLI (build `npm run build` → `dist`,
+  rama `main`); repo GitHub `marco-villanueva/pokedex2027` conectado vía
+  `pages source connect` (owner-id 19434129, repo-id 1411973700) con
+  auto-deploy en push (disparado con commit vacío, build prod en verde al
+  primer intento).
+- Dominio `pokemon.marcovillanueva.com` activo con CNAME proxied a
+  `pokedex2027.pages.dev` + cert Google; raíz 200 con título correcto y
+  deep-link `/pokemon/charizard` sirviendo la SPA (fallback `_redirects` OK).
+- Nota: `cf pages deploy` (CLI beta) no sube directo a Pages clásico —
+  el flujo soportado es proyecto + git source o `cf deploy` (Pages en Workers).
+- README actualizado con URL viva y nota Cloudflare.
+
 ## README + legal (2026-10-09)
 
 - README reescrito en inglés: proyecto clásico de aprendizaje potenciado

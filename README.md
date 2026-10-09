@@ -109,10 +109,15 @@ and CSS-first effects (no WebGL in V1 — see D-019 in `docs/DECISIONS.md`).
 
 ## Deployment
 
+Live at **https://pokemon.marcovillanueva.com** (Cloudflare Pages,
+git-connected: every push to `main` auto-deploys with `npm run build` → `dist/`).
+
 `dist/` is a static site; client routes need an SPA fallback:
 
 - Netlify: `public/_redirects` (`/* /index.html 200`) included.
 - Vercel: `vercel.json` rewrites included.
+- Cloudflare Pages: `public/_redirects` is honored as-is (verified live:
+  `/pokemon/charizard` serves the SPA shell with HTTP 200).
 - Any static host: serve `index.html` for unknown paths.
 
 ## How to study it
