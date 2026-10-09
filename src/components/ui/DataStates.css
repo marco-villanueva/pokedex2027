@@ -1,0 +1,78 @@
+.data-state {
+  display: grid;
+  gap: var(--space-sm);
+  justify-items: center;
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklch, var(--color-surface-0) 55%, transparent);
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-heading);
+  }
+
+  p {
+    color: var(--color-text-1);
+    max-width: 32rem;
+  }
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+  inline-size: 100%;
+  max-width: 34rem;
+}
+
+.skeleton-card {
+  block-size: 8rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    100deg,
+    var(--color-surface-0) 30%,
+    var(--color-surface-1) 50%,
+    var(--color-surface-0) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite linear;
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+
+.btn {
+  appearance: none;
+  cursor: pointer;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-text-0);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  background: color-mix(in oklch, var(--color-accent) 22%, transparent);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-card {
+    animation: none;
+  }
+}

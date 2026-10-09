@@ -1,0 +1,67 @@
+/* §7 P1-5 — container queries en cards y paneles.
+ *
+ * El componente responde a su contenedor, no al viewport ("mobile no es
+ * desktop reducido" a nivel componente). CSS puro, cero TSX tocado.
+ * Baseline Widely available (todos los motores desde feb-2023): sin
+ * `@supports`; el estilo base narrow-first ES el fallback — sin
+ * contenedor compatible la card se ve exactamente como en V1.
+ *
+ * Funciones: jerarquía / lectura de datos (la card ancha deja de ser un
+ * cuadrado gigante; el nodo evo solitario usa el ancho de su tira).
+ */
+
+/* Celdas de card: el contenedor que la card consulta. */
+.explorer-grid > li,
+.lab-study-grid > li {
+  container: card-cell / inline-size;
+}
+
+/* Celda ancha (shelf con 1–2 favoritos, celdas estiradas): la card pasa a
+ * horizontal — cámara a la izquierda, identidad a la derecha — en vez de
+ * un chamber cuadrado a ancho completo. */
+@container card-cell (min-width: 26rem) {
+  .pokemon-card-link {
+    display: grid;
+    grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  }
+
+  .pokemon-card-media {
+    block-size: 100%;
+    min-block-size: 13rem;
+  }
+
+  .pokemon-card-body {
+    border-block-start: none;
+    border-inline-start: 1px solid
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 26%, var(--color-border));
+    align-content: center;
+  }
+}
+
+/* Tira de estadios: el contenedor que decide el showcase solitario.
+ * Medido: el ancho de estadio NO separa contextos (mobile apilado 22.4rem
+ * vs desktop-3col 22.8rem — indistinguibles), pero el strip sí (mid 48rem
+ * vs desktop 70rem). Los nodos siguen con el media de viewport V1. */
+.evo-tiers {
+  container: evo-strip / inline-size;
+}
+
+/* Strip ancho (flujo en columnas): el nodo solitario ocupa la fila con
+ * layout horizontal — artwork a la izquierda, identidad a la derecha.
+ * En strips estrechos (mobile apilado) conserva el vertical V1. */
+@container evo-strip (min-width: 60rem) {
+  .evo-nodes > li:only-child {
+    grid-column: 1 / -1;
+  }
+
+  .evo-nodes > li:only-child .evo-card-link {
+    grid-template-columns: 10rem minmax(0, 1fr);
+    justify-items: start;
+    text-align: start;
+    align-items: center;
+  }
+
+  .evo-nodes > li:only-child .evo-card-types {
+    justify-content: start;
+  }
+}

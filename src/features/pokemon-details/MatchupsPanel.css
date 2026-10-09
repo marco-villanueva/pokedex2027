@@ -1,0 +1,37 @@
+.matchup-group {
+  display: grid;
+  gap: var(--space-xs);
+
+  h3 {
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-1);
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+}
+
+.matchup-mult {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}
+
+.panel-muted {
+  color: var(--color-text-1);
+  font-size: var(--text-label);
+}

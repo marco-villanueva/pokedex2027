@@ -1,0 +1,331 @@
+.dossier {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.dossier-context {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.75rem;
+    text-decoration: none;
+    color: var(--color-text-1);
+  }
+
+  a:hover {
+    color: var(--color-text-0);
+  }
+}
+
+.dossier-stepper {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-mono);
+
+  .is-disabled {
+    opacity: 0.4;
+  }
+}
+
+.dossier-id {
+  color: var(--color-accent);
+  /* Hero numeral, fluid (§7 P1-9): matches the display scale's behaviour
+   * without any font download. */
+  font-size: clamp(0.85rem, 0.8rem + 0.5vw, 1rem);
+}
+
+.dossier-hero {
+  display: grid;
+  gap: var(--space-lg);
+
+  @media (min-width: 760px) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+}
+
+/* Scanner chamber: reticle field + holographic specimen + readouts. */
+.scanner-chamber {
+  position: relative;
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  border: 1px solid
+    color-mix(in oklch, var(--type-primary, var(--color-accent)) 34%, var(--color-border));
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 20%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 6%, transparent) 1px,
+      transparent 1px
+    ),
+    var(--color-bg-1);
+  background-size:
+    auto,
+    26px 26px,
+    26px 26px,
+    auto;
+  overflow: hidden;
+}
+
+.scanner-field {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--space-md);
+  opacity: 0.85;
+  pointer-events: none;
+
+  .px-scanner {
+    max-inline-size: 26rem;
+  }
+}
+
+.scanner-holo {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-block-size: 16rem;
+}
+
+/* Scanner sheen: the holographic foil/spec layers are square boxes floating
+ * over the reticle field. Feather them into a circular glow so hover never
+ * draws a hard square edge against the chamber. The artwork itself is
+ * untouched — only the sheen layers are masked. */
+.scanner-holo .px-holo-foil,
+.scanner-holo .px-holo-spec {
+  -webkit-mask-image: radial-gradient(circle closest-side, black 58%, transparent 82%);
+  mask-image: radial-gradient(circle closest-side, black 58%, transparent 82%);
+}
+
+.scanner-art {
+  inline-size: 100%;
+  max-inline-size: 20rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+  translate: calc((var(--px, 0.5) - 0.5) * 18px) calc((var(--py, 0.5) - 0.5) * 12px);
+  filter: drop-shadow(
+    0 18px 30px color-mix(in oklch, var(--type-primary, var(--color-accent)) 38%, transparent)
+  );
+}
+
+.scanner-readout {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  /* Chamber numeral, fluid (§7 P1-9) with the rest of the hero. */
+  font-size: clamp(0.72rem, 0.7rem + 0.4vw, 0.85rem);
+  letter-spacing: 0.14em;
+  color: var(--type-accent, var(--color-accent));
+}
+
+.scanner-variant {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: var(--space-xs);
+  justify-content: center;
+}
+
+.scanner-note {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}
+
+.dossier-missing {
+  color: var(--color-text-1);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
+}
+
+.dossier-identity {
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    line-height: 1.02;
+  }
+}
+
+.dossier-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.team-note {
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}
+
+.team-add {
+  display: grid;
+  gap: var(--space-xs);
+  justify-items: start;
+}
+
+.dossier-types {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.dossier-flags {
+  display: flex;
+  gap: var(--space-xs);
+
+  span {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: 999px;
+    padding: 0.15rem 0.6rem;
+  }
+}
+
+.dossier-flavor {
+  color: var(--color-text-1);
+  max-width: 38rem;
+}
+
+.dossier-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+  gap: var(--space-sm);
+  margin-block-start: var(--space-sm);
+}
+
+.dossier-panels {
+  display: grid;
+  gap: var(--space-md);
+
+  @media (min-width: 760px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-0);
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-heading);
+  }
+}
+
+.panel-stats {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.detail-back {
+  margin-block-start: var(--space-md);
+
+  a {
+    display: inline-block;
+    min-block-size: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanner-art {
+    translate: none;
+  }
+}
+
+/* Pending dossier: mirrors hero geometry (chamber square + identity column)
+ * and the two-column body so content settles without layout shift. Blocks
+ * reuse the shared `.skeleton-card` shimmer; only proportions live here. */
+.dossier-pending-label {
+  color: var(--color-text-1);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dossier-pending-chamber {
+  aspect-ratio: 1;
+  inline-size: 100%;
+  block-size: auto;
+  min-block-size: 16rem;
+  border: 1px solid var(--color-border);
+}
+
+.dossier-pending-identity {
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+}
+
+.dossier-pending-title {
+  block-size: 3rem;
+}
+
+.dossier-pending-badges {
+  display: flex;
+  gap: var(--space-xs);
+
+  .skeleton-card {
+    inline-size: 5.5rem;
+    block-size: 1.75rem;
+    border-radius: 999px;
+  }
+}
+
+.dossier-pending-row {
+  block-size: 2.75rem;
+}
+
+.dossier-pending-panels {
+  display: grid;
+  gap: var(--space-lg);
+
+  .skeleton-card {
+    min-block-size: 12rem;
+    border: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 760px) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}

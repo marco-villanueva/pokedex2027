@@ -1,0 +1,70 @@
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.panel-link {
+  display: inline-block;
+  min-block-size: 1.5rem;
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-1);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.panel-link:hover {
+  color: var(--color-text-0);
+}
+
+.evo-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.evo-node {
+  --evo-depth: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  padding: var(--space-xs) var(--space-sm);
+  margin-inline-start: calc(var(--evo-depth) * var(--space-lg));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  border-inline-start-width: 3px;
+  border-inline-start-color: color-mix(
+    in oklch,
+    var(--type-primary, var(--color-accent)) 55%,
+    var(--color-border)
+  );
+}
+
+.evo-condition {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}
+
+.evo-link {
+  display: inline-block;
+  min-block-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-0);
+  text-decoration: none;
+}
+
+.evo-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.evo-current {
+  font-weight: 700;
+  color: var(--type-accent, var(--color-accent));
+}

@@ -1,0 +1,46 @@
+/* §7 P0-1 — SPA View Transitions (morph card → dossier).
+ *
+ * Shared pairs (set inline per specimen id so only the travelling pair
+ * matches): `pokemon-art-<id>` on card artwork + dossier hero artwork,
+ * `pokemon-numeral-<id>` on card watermark + dossier readout numeral.
+ * Everything else uses the default root crossfade (continuity/orientation).
+ *
+ * Progressive: browsers without the API ignore these rules and navigate
+ * plainly. `prefers-reduced-motion` kills the snapshots — content intact.
+ */
+
+/* Cross-document (hard load / deep link) progressive reveal. Unknown
+ * at-rules are dropped by unsupporting engines, so no @supports needed. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Keep the morph tight: artwork travels, numerals track, rest crossfades. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--duration-slow, 320ms);
+  animation-timing-function: var(--easing-standard, ease);
+}
+
+::view-transition-group(*) {
+  animation-duration: var(--duration-slow, 320ms);
+  animation-timing-function: var(--easing-standard, ease);
+}
+
+/* Type identity survives the snapshot: snapshots are bitmaps, so keep the
+ * travelling artwork above the chamber grid during the flight. */
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

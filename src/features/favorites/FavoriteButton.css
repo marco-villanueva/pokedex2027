@@ -1,0 +1,41 @@
+.px-favorite {
+  appearance: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: color-mix(in oklch, var(--color-bg-0) 78%, transparent);
+  color: var(--color-text-1);
+  transition:
+    color var(--duration-fast) var(--easing-standard),
+    border-color var(--duration-fast) var(--easing-standard),
+    transform var(--duration-fast) var(--easing-standard);
+
+  svg {
+    inline-size: 1.15rem;
+    block-size: 1.15rem;
+  }
+}
+
+.px-favorite:hover {
+  color: var(--color-text-0);
+  border-color: var(--color-text-1);
+}
+
+.px-favorite:active {
+  transform: scale(0.92);
+}
+
+.px-favorite[data-active] {
+  color: var(--type-accent, var(--color-accent));
+  border-color: color-mix(in oklch, var(--type-accent, var(--color-accent)) 60%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-favorite:active {
+    transform: none;
+  }
+}

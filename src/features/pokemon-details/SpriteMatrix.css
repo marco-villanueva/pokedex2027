@@ -1,0 +1,32 @@
+.sprite-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 6.5rem), 1fr));
+}
+
+.sprite-cell {
+  display: grid;
+  gap: var(--space-xs);
+  justify-items: center;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-1);
+
+  img {
+    inline-size: 6rem;
+    block-size: 6rem;
+    object-fit: contain;
+    image-rendering: pixelated;
+  }
+
+  span {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-1);
+  }
+}

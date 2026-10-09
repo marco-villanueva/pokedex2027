@@ -1,0 +1,162 @@
+/* §7 P1-7 — command palette (popover + anchor, hand-made).
+ *
+ * Trigger anchors the panel (`position-area: block-end` + flip); without
+ * anchor support the panel falls back to a centered card — both top-layer,
+ * both Esc/light-dismiss native. Function: orientación (jump) + feedback.
+ */
+
+/* Header trigger: compact instrument button with the shortcut hint. */
+.px-palette-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-block-size: 2.75rem;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-0);
+  color: var(--color-text-1);
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  anchor-name: --palette-trigger;
+}
+
+.px-palette-trigger:hover {
+  color: var(--color-text-0);
+  border-color: var(--color-accent);
+}
+
+.px-palette-kbd {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  color: var(--color-text-1);
+}
+
+.px-palette {
+  position: fixed;
+  position-anchor: --palette-trigger;
+  position-area: block-end;
+  position-try-fallbacks: flip-block;
+  margin-block-start: var(--space-xs);
+  inline-size: min(30rem, calc(100vw - 2rem));
+  padding: 0;
+  border: 1px solid color-mix(in oklch, var(--color-accent) 40%, var(--color-border));
+  border-radius: var(--radius-md);
+  background: var(--color-surface-0);
+  color: var(--color-text-0);
+  box-shadow: 0 24px 60px rgb(0 0 0 / 0.55);
+}
+
+/* No anchor positioning: centered card under the header instead. */
+@supports not (position-area: block-end) {
+  .px-palette {
+    position-anchor: initial;
+    inset-block-start: 4rem;
+    inset-inline: 0;
+    margin-inline: auto;
+  }
+}
+
+.px-palette::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+
+.px-palette-box {
+  display: grid;
+  gap: var(--space-xs);
+  padding: var(--space-sm);
+}
+
+.px-palette-input {
+  inline-size: 100%;
+  min-block-size: 2.75rem;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-1);
+  color: var(--color-text-0);
+  font-size: 1rem;
+}
+
+.px-palette-input:focus-visible {
+  outline-offset: -1px;
+}
+
+.px-palette-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  max-block-size: 19rem;
+  overflow-y: auto;
+}
+
+.px-palette-option {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  min-block-size: 2.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.px-palette-option[data-active] {
+  background: color-mix(in oklch, var(--color-accent) 14%, transparent);
+  border-color: color-mix(in oklch, var(--color-accent) 45%, transparent);
+}
+
+.px-palette-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}
+
+.px-palette-name {
+  font-weight: 600;
+}
+
+.px-palette-hint,
+.px-palette-go {
+  margin-inline-start: auto;
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-1);
+}
+
+.px-palette-status {
+  padding: var(--space-md);
+  color: var(--color-text-1);
+  text-align: center;
+}
+
+.px-palette-foot {
+  margin: 0;
+  padding-inline: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: var(--color-text-1);
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .px-palette-trigger-label,
+  .px-palette-kbd {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-palette,
+  .px-palette-option {
+    transition: none;
+  }
+}

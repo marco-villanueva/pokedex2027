@@ -1,0 +1,158 @@
+.explorer-header {
+  display: grid;
+  gap: var(--space-md);
+  margin-block-end: var(--space-md);
+
+  @media (min-width: 720px) {
+    grid-template-columns: 1fr minmax(16rem, 22rem);
+    align-items: end;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.explorer-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.explorer-subtitle {
+  color: var(--color-text-1);
+  max-width: 40rem;
+}
+
+/* Filter console: grouped chip rails + sort tools. */
+.explorer-filters {
+  display: grid;
+  gap: var(--space-md);
+  margin-block-end: var(--space-lg);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklch, var(--color-surface-0) 60%, transparent);
+}
+
+.explorer-filter-group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-xs);
+
+  legend {
+    padding: 0;
+    margin-block-end: var(--space-xs);
+    font-size: var(--text-label);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-1);
+  }
+}
+
+.explorer-chip-row {
+  display: flex;
+  gap: var(--space-xs);
+  overflow-x: auto;
+  padding-block-end: var(--space-xs);
+  scrollbar-width: thin;
+  /* Edge fades signal horizontal scrollability on touch rails. */
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black var(--space-md),
+    black calc(100% - var(--space-md)),
+    transparent
+  );
+
+  .px-chip {
+    flex-shrink: 0;
+  }
+}
+
+.explorer-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+.explorer-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-1);
+
+  select {
+    padding: var(--space-xs) var(--space-sm);
+    min-block-size: 2.75rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-0);
+    color: var(--color-text-0);
+    font: inherit;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+}
+
+.explorer-status {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+  margin-block-end: var(--space-md);
+}
+
+.explorer-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+  /* auto-fit (no auto-fill): con pocos resultados/shelf las celdas se
+   * estiran en vez de dejar tracks vacíos — y la card responde a su celda
+   * vía container query (`container-queries.css`). A volumen es idéntico. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+  align-content: start;
+}
+
+.explorer-sentinel {
+  block-size: 1px;
+}
+
+.explorer-more {
+  display: flex;
+  justify-content: center;
+  margin-block-start: var(--space-lg);
+}
+
+.explorer-batch-error {
+  margin-block-start: var(--space-md);
+  color: var(--color-text-1);
+  font-size: var(--text-label);
+  text-align: center;
+}
+
+.explorer-retry-link {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--color-text-0);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font: inherit;
+}

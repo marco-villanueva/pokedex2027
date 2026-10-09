@@ -1,0 +1,105 @@
+.px-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  color: var(--color-text-0);
+  border: 1px solid color-mix(in oklch, var(--type-primary) 65%, var(--color-border));
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in oklch, var(--type-primary) 30%, transparent),
+      color-mix(in oklch, var(--type-secondary) 26%, transparent)
+    ),
+    var(--color-surface-0);
+}
+
+.px-type-glyph::before {
+  content: var(--type-glyph, '●');
+  color: var(--type-accent);
+  font-size: 0.85em;
+}
+
+/* §7 P0-4 — anchor tooltip with the badge's defensive table.
+ *
+ * Hidden by default; the whole enhancement lives behind `@supports`, so
+ * unsupported engines keep the static `title` and never see a tip.
+ * `flip-block` keeps the card on-screen on the block axis; the max width
+ * plus wrapping keeps it sane inline. Hover-only by design: supplementary
+ * info (full matchups live as text in the dossier), zero new tab stops.
+ */
+.px-type-tip {
+  display: none;
+}
+
+@supports (position-area: block-start) {
+  .px-type-tip {
+    display: block;
+    position: absolute;
+    position-area: block-start;
+    position-try-fallbacks: flip-block;
+    /* Top layer (popover=manual, shown on hover): escapes card
+     * `overflow: hidden`. Never intercepts the pointer. */
+    pointer-events: none;
+    z-index: 60;
+    inline-size: max-content;
+    max-inline-size: min(17rem, calc(100vw - 2rem));
+    padding: var(--space-sm);
+    border: 1px solid
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 45%, var(--color-border));
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-1);
+    color: var(--color-text-0);
+    font-size: var(--text-label);
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    text-align: start;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.5);
+
+    opacity: 0;
+    visibility: hidden;
+    translate: 0 4px;
+    transition:
+      opacity var(--duration-fast) var(--easing-standard),
+      translate var(--duration-fast) var(--easing-standard),
+      visibility var(--duration-fast) allow-discrete;
+  }
+
+  .px-type-badge:hover > .px-type-tip,
+  .px-type-tip:popover-open {
+    opacity: 1;
+    visibility: visible;
+    translate: 0 0;
+  }
+}
+
+.px-type-tip-grid {
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.px-type-tip-row {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.px-type-tip-label {
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-type-tip {
+    transition: none;
+  }
+}

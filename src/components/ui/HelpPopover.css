@@ -1,0 +1,114 @@
+/* §7 P0-3 — native popover + `@starting-style` entry.
+ *
+ * Supplementary help (matchup legend, filter aid) floats in the top layer;
+ * open/close is 100 % native (Esc, light-dismiss, focus return), so this
+ * stylesheet only owns presentation + the declarative entry/exit.
+ *
+ * - All overlay rules sit behind `@supports selector(:popover-open)`.
+ * - Entry: `@starting-style` (Chrome 117+, Safari 17.5+, Firefox 129+).
+ * - Exit: `transition-behavior: allow-discrete` on display/overlay.
+ * - Unsupported browsers never reach these rules; the component renders a
+ *   `<details>` fallback instead — legible with zero popover CSS.
+ * - Function: feedback/orientation (what am I reading?) + lectura de datos.
+ */
+
+.px-popover-trigger {
+  appearance: none;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-xs);
+  min-block-size: 2.75rem;
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--color-text-1);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.px-popover-trigger:hover {
+  color: var(--color-text-0);
+}
+
+.px-popover-title {
+  font-size: var(--text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-block-end: var(--space-sm);
+}
+
+@supports selector(:popover-open) {
+  .px-popover {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    inline-size: fit-content;
+    block-size: fit-content;
+    max-inline-size: min(24rem, calc(100vw - 2rem));
+    max-block-size: calc(100vh - 4rem);
+    overflow: auto;
+    padding: var(--space-md);
+    border: 1px solid
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 40%, var(--color-border));
+    border-radius: var(--radius-md);
+    background: var(--color-surface-0);
+    color: var(--color-text-0);
+    font-size: 0.95rem;
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.5);
+
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity var(--duration-base) var(--easing-standard),
+      transform var(--duration-base) var(--easing-standard),
+      overlay var(--duration-base) allow-discrete,
+      display var(--duration-base) allow-discrete;
+  }
+
+  .px-popover:popover-open {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    .px-popover:popover-open {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
+  .px-popover::backdrop {
+    background: rgb(0 0 0 / 0.45);
+  }
+}
+
+/* Fallback disclosure (no Popover API): plain readable block. */
+.px-popover-fallback {
+  font-size: 0.95rem;
+  color: var(--color-text-1);
+}
+
+.px-popover-fallback > summary {
+  min-block-size: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.px-popover-fallback-body {
+  padding-block-end: var(--space-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-popover-trigger,
+  .px-popover {
+    transition: none;
+  }
+}

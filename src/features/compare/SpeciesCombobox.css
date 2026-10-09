@@ -1,0 +1,84 @@
+.px-combo {
+  position: relative;
+  display: grid;
+  gap: var(--space-xs);
+}
+
+.px-combo-label {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-1);
+}
+
+.px-combo input {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-0);
+  color: var(--color-text-0);
+  min-inline-size: 0;
+  inline-size: 100%;
+}
+
+.px-combo input::placeholder {
+  color: var(--color-text-1);
+}
+
+.px-combo-current {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}
+
+.px-combo-clear {
+  appearance: none;
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-0);
+  font-size: var(--text-label);
+  padding: 0.15rem 0.5rem;
+  min-block-size: 2.75rem;
+}
+
+.px-combo-list {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline: 0;
+  z-index: 20;
+  list-style: none;
+  margin: var(--space-xs) 0 0;
+  padding: var(--space-xs);
+  display: grid;
+  gap: 2px;
+  max-block-size: 18rem;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-1);
+  box-shadow: 0 18px 40px oklch(0 0 0 / 0.45);
+}
+
+.px-combo-list li {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: baseline;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.px-combo-list li[data-active] {
+  background: color-mix(in oklch, var(--color-accent) 22%, transparent);
+}
+
+.px-combo-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}

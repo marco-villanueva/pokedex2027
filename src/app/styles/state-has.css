@@ -1,0 +1,44 @@
+/* §7 P1-6 — `:has()` para estados, cero JS.
+ *
+ * Los contenedores reaccionan a la semántica nativa de sus hijos
+ * (`aria-pressed`, `:placeholder-shown`): ningún script añade clases al
+ * padre — el dossier ni siquiera usa estado de React para el shiny (vive
+ * en la URL). Baseline Widely available: sin `@supports`; sin soporte
+ * las reglas se ignoran y queda el aspecto V1.
+ *
+ * Funciones: feedback (el filtro activo se ve en su grupo), identidad de
+ * variante (la cámara sabe cuándo muestra el shiny), lectura de datos.
+ */
+
+/* La cámara reacciona al shiny: el toggle Shiny es el último botón del
+ * grupo de variante; `pressed=true` en él = espécimen shiny en cámara. */
+.scanner-chamber:has(.scanner-variant > :last-child[aria-pressed='true']) {
+  border-color: color-mix(
+    in oklch,
+    var(--type-accent, var(--color-accent)) 65%,
+    var(--color-border)
+  );
+}
+
+.scanner-chamber:has(.scanner-variant > :last-child[aria-pressed='true']) .scanner-art {
+  filter: drop-shadow(
+      0 0 26px color-mix(in oklch, var(--type-accent, var(--color-accent)) 60%, transparent)
+    )
+    saturate(1.15);
+}
+
+/* El grupo de filtros marca su leyenda cuando porta un filtro real.
+ * El primer chip ("All" = sin filtro) no cuenta. */
+.explorer-filter-group:has(.explorer-chip-row > .px-chip:not(:first-child)[aria-pressed='true'])
+  > legend {
+  color: var(--color-accent);
+}
+
+/* La búsqueda marca su etiqueta y su borde mientras filtra. */
+.explorer-search:has(.px-search-input:not(:placeholder-shown)) .px-search-label {
+  color: var(--color-accent);
+}
+
+.explorer-search:has(.px-search-input:not(:placeholder-shown)) .px-search-input {
+  border-color: color-mix(in oklch, var(--color-accent) 60%, var(--color-border));
+}

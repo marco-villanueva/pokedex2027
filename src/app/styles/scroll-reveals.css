@@ -1,0 +1,72 @@
+/* §7 P0-2 — Scroll-driven reveals (compositor-driven, CSS-only).
+ *
+ * Entrada de cards del explorer y secciones del dossier ligada al scroll,
+ * más un parallax contenido del artwork del chamber. Sirve a jerarquía /
+ * lectura de datos (la telemetría se revela al llegar a ella), no es
+ * decoración.
+ *
+ * Reglas duras:
+ * - Contenido visible por defecto: fuera de `@supports` no hay ninguna
+ *   regla (nada que desactivar, nada que romper).
+ * - El reveal es SOLO `transform` (nunca opacity): el texto conserva su
+ *   contraste AA durante todo el vuelo, también si un panel queda a caballo
+ *   del fold cuando un analizador estático muestrea la página.
+ * - Solo realza la entrada: no toca carga (el IntersectionObserver de 48
+ *   ventanas sigue siendo el único que materializa), no toca layout
+ *   (transform → sin CLS, sin coste de paint por frame).
+ * - Solo animación de entrada/parallax: sin loops, sin delays largos.
+ */
+
+@supports (animation-timeline: view()) {
+  /* Cards del explorer: entran al cruzar el viewport. Las ventanas del
+   * infinite scroll materializan por IO; el reveal solo anima su entrada. */
+  .explorer-grid > li {
+    animation: px-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 24%;
+  }
+
+  /* Secciones del dossier: cada panel se revela al llegar a él. Van dentro
+   * de wrappers `.px-enter` (mount), así que no hay conflicto de
+   * propiedades: el mount anima al padre, el scroll al panel hijo. */
+  .dossier-panels .panel {
+    animation: px-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 18%;
+  }
+
+  /* Cámara del dossier: el artwork flota con parallax contenido mientras
+   * el hero sale del viewport. Solo transform (el LCP/CLS no se tocan).
+   * `transform` compone con el `translate` del tilt de puntero: no lo pisa. */
+  .scanner-chamber .scanner-art {
+    animation: px-chamber-drift linear both;
+    animation-timeline: view();
+    animation-range: cover 0% exit 100%;
+  }
+}
+
+@keyframes px-reveal {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes px-chamber-drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(28px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explorer-grid > li,
+  .dossier-panels .panel,
+  .scanner-chamber .scanner-art {
+    animation: none;
+  }
+}

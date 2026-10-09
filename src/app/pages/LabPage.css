@@ -1,0 +1,120 @@
+.lab {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.lab-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: 1.05;
+}
+
+.lab-subtitle {
+  color: var(--color-text-1);
+  max-width: 44rem;
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--color-text-0);
+  }
+}
+
+.lab-heading {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  margin-block-start: var(--space-md);
+}
+
+.lab-type-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+}
+
+.lab-swatch {
+  display: grid;
+  gap: var(--space-xs);
+  justify-items: start;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in oklch, var(--type-primary) 40%, var(--color-border));
+  background:
+    radial-gradient(
+      circle at 80% 10%,
+      color-mix(in oklch, var(--type-primary) 22%, transparent),
+      transparent 65%
+    ),
+    var(--color-surface-0);
+}
+
+.lab-swatch-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-1);
+}
+
+.lab-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.lab-note {
+  color: var(--color-text-1);
+  max-width: 44rem;
+}
+
+.lab-study-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+}
+
+.lab-study {
+  display: grid;
+  gap: var(--space-xs);
+  align-content: start;
+}
+
+.lab-study-note {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+}
+
+.lab-data-grid {
+  display: grid;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+}
+
+.lab-stats {
+  display: grid;
+  gap: var(--space-xs);
+  max-width: 30rem;
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-0);
+}
+
+.lab-scanner-row {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+  max-width: 36rem;
+}
+
+.lab-scanner-cell {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-1);
+  padding: var(--space-md);
+}

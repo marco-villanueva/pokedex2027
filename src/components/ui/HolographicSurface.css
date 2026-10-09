@@ -1,0 +1,96 @@
+.px-holo {
+  --px: 0.5;
+  --py: 0.35;
+  --rx: 0deg;
+  --ry: 0deg;
+  perspective: 900px;
+}
+
+.px-holo-tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform var(--duration-base) var(--easing-standard);
+  border-radius: inherit;
+}
+
+.px-holo-content {
+  position: relative;
+  transform: translateZ(24px);
+  transform-style: preserve-3d;
+}
+
+/* Foil: type-tinted diagonal bands whose hue drifts with pointer x. */
+.px-holo-foil {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+  background: linear-gradient(
+    calc(115deg + var(--px) * 40deg - 20deg),
+    transparent 20%,
+    color-mix(in oklch, var(--type-primary, var(--color-accent)) 26%, transparent) 38%,
+    color-mix(in oklch, var(--type-accent, var(--color-accent)) 30%, transparent) 50%,
+    color-mix(in oklch, var(--type-secondary, var(--color-accent)) 24%, transparent) 62%,
+    transparent 80%
+  );
+  transition: opacity var(--duration-base) var(--easing-standard);
+}
+
+/* Specular highlight following the pointer. */
+.px-holo-spec {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at calc(var(--px) * 100%) calc(var(--py) * 100%),
+    oklch(1 0 0 / 0.16),
+    transparent 55%
+  );
+  transition: opacity var(--duration-base) var(--easing-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .px-holo:hover .px-holo-foil,
+  .px-holo:focus-within .px-holo-foil,
+  .px-holo:hover .px-holo-spec,
+  .px-holo:focus-within .px-holo-spec {
+    opacity: 1;
+  }
+}
+
+/* Touch / coarse pointers: no tilt, faint static sheen for material hint. */
+@media (hover: none), (pointer: coarse) {
+  .px-holo-tilt {
+    transform: none;
+  }
+
+  .px-holo-foil {
+    opacity: 0.35;
+  }
+
+  .px-holo-spec {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-holo-tilt {
+    transform: none;
+    transition: none;
+  }
+
+  .px-holo-content {
+    transform: none;
+  }
+
+  .px-holo-foil,
+  .px-holo-spec {
+    opacity: 0;
+    transition: none;
+  }
+}

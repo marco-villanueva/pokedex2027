@@ -1,0 +1,236 @@
+.pokemon-card {
+  position: relative;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-0);
+  overflow: hidden;
+  transition: border-color var(--duration-base) var(--easing-standard);
+
+  /* Favorite action floats above the chamber, outside the dossier link. */
+  > .px-favorite {
+    position: absolute;
+    inset-block-start: var(--space-sm);
+    inset-inline-end: var(--space-sm);
+    z-index: 3;
+  }
+}
+
+.pokemon-card:hover,
+.pokemon-card:focus-within {
+  border-color: color-mix(
+    in oklch,
+    var(--type-primary, var(--color-accent)) 60%,
+    var(--color-border)
+  );
+}
+
+.pokemon-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.pokemon-card-holo {
+  border-radius: 0;
+}
+
+/* Artwork chamber: type atmosphere + instrument grid + corner ticks. */
+.pokemon-card-media {
+  position: relative;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  padding: var(--space-md);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at calc(var(--px, 0.5) * 100%) calc(var(--py, 0.35) * 100%),
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 24%, transparent),
+      transparent 68%
+    ),
+    linear-gradient(
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    var(--color-bg-1);
+  background-size:
+    auto,
+    22px 22px,
+    22px 22px,
+    auto;
+}
+
+.pokemon-card-media::before,
+.pokemon-card-media::after {
+  content: '';
+  position: absolute;
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  border: 2px solid color-mix(in oklch, var(--type-accent, var(--color-accent)) 75%, transparent);
+  z-index: 2;
+}
+
+.pokemon-card-media::before {
+  inset-block-start: 0.55rem;
+  inset-inline-start: 0.55rem;
+  border-block-end: none;
+  border-inline-end: none;
+}
+
+.pokemon-card-media::after {
+  inset-block-end: 0.55rem;
+  inset-inline-end: 0.55rem;
+  border-block-start: none;
+  border-inline-start: none;
+}
+
+/* Oversized index watermark drifting against the pointer. Fluid (§7
+ * P1-9): full voice on desktop, restrained on handheld — zero font
+ * downloads, layout-stable (no swap, no CLS). */
+.pokemon-card-watermark {
+  position: absolute;
+  inset-block-end: -0.35em;
+  inset-inline-end: 0.1em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 2rem + 4vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: color-mix(in oklch, var(--type-primary, var(--color-accent)) 22%, transparent);
+  translate: calc((var(--px, 0.5) - 0.5) * -10px) calc((var(--py, 0.5) - 0.5) * -8px);
+  user-select: none;
+}
+
+@supports (-webkit-text-stroke: 1px black) {
+  .pokemon-card-watermark {
+    color: transparent;
+    -webkit-text-stroke: 1px
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 34%, transparent);
+  }
+}
+
+.pokemon-card-art {
+  inline-size: 100%;
+  max-inline-size: 10rem;
+  aspect-ratio: 1;
+  object-fit: contain;
+  /* Parallax against the tilt: artwork floats while the chamber turns. */
+  translate: calc((var(--px, 0.5) - 0.5) * 14px) calc((var(--py, 0.5) - 0.5) * 10px);
+  filter: drop-shadow(
+    0 14px 22px color-mix(in oklch, var(--type-primary, var(--color-accent)) 32%, transparent)
+  );
+}
+
+.pokemon-card-missing {
+  display: grid;
+  place-items: center;
+  inline-size: 4rem;
+  block-size: 4rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-1);
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+}
+
+.pokemon-card-body {
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  display: grid;
+  gap: var(--space-xs);
+  border-block-start: 1px solid
+    color-mix(in oklch, var(--type-primary, var(--color-accent)) 26%, var(--color-border));
+}
+
+.pokemon-card-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+  letter-spacing: 0.1em;
+}
+
+.pokemon-card-name {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  line-height: 1.2;
+}
+
+.pokemon-card-types {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+/* In-grid skeleton: mirrors card geometry (media square + 3 text rows +
+ * badge row) so rows pop in without moving laid-out content. */
+.pokemon-card-skeleton {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-0);
+  overflow: hidden;
+  display: grid;
+  gap: var(--space-xs);
+  padding-block-end: var(--space-md);
+}
+
+.pokemon-card-skeleton-media {
+  aspect-ratio: 1;
+  background: linear-gradient(
+    100deg,
+    var(--color-bg-1) 30%,
+    var(--color-surface-1) 50%,
+    var(--color-bg-1) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite linear;
+}
+
+.pokemon-card-skeleton-line {
+  block-size: 0.85rem;
+  margin-inline: var(--space-md);
+  border-radius: 4px;
+  background: var(--color-bg-1);
+}
+
+.pokemon-card-skeleton-title {
+  block-size: 1.6rem;
+}
+
+.pokemon-card-skeleton-badges {
+  display: flex;
+  gap: var(--space-xs);
+  margin-inline: var(--space-md);
+
+  span {
+    block-size: 1.5rem;
+    inline-size: 4rem;
+    border-radius: 999px;
+    background: var(--color-bg-1);
+  }
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 180% 0;
+  }
+  to {
+    background-position: -80% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pokemon-card-watermark,
+  .pokemon-card-art {
+    translate: none;
+  }
+
+  .pokemon-card-skeleton-media {
+    animation: none;
+  }
+}

@@ -1,0 +1,72 @@
+.px-scanner {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  inline-size: 100%;
+  color: var(--type-accent, var(--color-accent));
+}
+
+.px-scanner-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklch, currentColor 45%, transparent);
+}
+
+.px-scanner-ring--outer {
+  inset: 2%;
+}
+
+.px-scanner-ring--inner {
+  inset: 12%;
+  border-style: dashed;
+  opacity: 0.7;
+}
+
+/* Tick band: 60 instrument ticks from a repeating gradient. */
+.px-scanner-ring--ticks {
+  inset: 6%;
+  border: none;
+  background: repeating-conic-gradient(
+    from 0deg,
+    color-mix(in oklch, currentColor 55%, transparent) 0deg 1deg,
+    transparent 1deg 6deg
+  );
+  mask-image: radial-gradient(circle, transparent 62%, black 62%, black 70%, transparent 70%);
+  animation: px-scanner-rotate 48s linear infinite;
+}
+
+.px-scanner-sweep {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    color-mix(in oklch, currentColor 22%, transparent) 40deg,
+    transparent 80deg
+  );
+  mask-image: radial-gradient(circle, transparent 55%, black 56%);
+  animation: px-scanner-rotate 9s linear infinite;
+}
+
+.px-scanner-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-1);
+}
+
+@keyframes px-scanner-rotate {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .px-scanner-ring--ticks,
+  .px-scanner-sweep {
+    animation: none;
+  }
+}

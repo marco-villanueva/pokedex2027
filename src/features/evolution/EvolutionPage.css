@@ -1,0 +1,160 @@
+.evo-page {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.evo-title {
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  line-height: 1.05;
+}
+
+.evo-subtitle {
+  color: var(--color-text-1);
+  max-width: 44rem;
+}
+
+/* Tiered lineage: horizontal stages on desktop, vertical flow on handheld. */
+.evo-tiers {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-lg);
+  margin-block-start: var(--space-md);
+
+  @media (min-width: 860px) {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(15rem, 1fr);
+    align-items: start;
+    overflow-x: auto;
+    padding-block-end: var(--space-md);
+  }
+}
+
+.evo-tier {
+  position: relative;
+  display: grid;
+  gap: var(--space-sm);
+  align-content: start;
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in oklch, var(--color-surface-0) 55%, transparent);
+}
+
+.evo-tier-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Stage connector: arrow rail between tiers. */
+.evo-tier + .evo-tier::before {
+  content: '↓';
+  position: absolute;
+  inset-block-start: -1.65rem;
+  inset-inline-start: 50%;
+  translate: -50% 0;
+  color: var(--color-text-1);
+  font-family: var(--font-mono);
+
+  @media (min-width: 860px) {
+    content: '→';
+    inset-block-start: 50%;
+    inset-inline-start: -1.65rem;
+    translate: 0 -50%;
+  }
+}
+
+.evo-nodes {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+
+  @media (min-width: 860px) {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+  }
+}
+
+.evo-tier:first-child .evo-nodes {
+  @media (min-width: 860px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.evo-card {
+  border: 1px solid
+    color-mix(in oklch, var(--type-primary, var(--color-accent)) 38%, var(--color-border));
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      color-mix(in oklch, var(--type-primary, var(--color-accent)) 18%, transparent),
+      transparent 70%
+    ),
+    var(--color-surface-0);
+  overflow: hidden;
+  transition: border-color var(--duration-base) var(--easing-standard);
+}
+
+.evo-card:hover,
+.evo-card:focus-within {
+  border-color: var(--type-accent, var(--color-accent));
+}
+
+.evo-card-link {
+  display: grid;
+  gap: var(--space-xs);
+  justify-items: center;
+  padding: var(--space-md);
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+
+  img {
+    inline-size: 7.5rem;
+    aspect-ratio: 1;
+    object-fit: contain;
+  }
+}
+
+.evo-card-missing {
+  display: grid;
+  place-items: center;
+  inline-size: 4rem;
+  block-size: 4rem;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+}
+
+.evo-card-id {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-1);
+  letter-spacing: 0.1em;
+}
+
+.evo-card-name {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+}
+
+.evo-card-types {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.evo-card-condition {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--type-accent, var(--color-accent));
+  border: 1px dashed color-mix(in oklch, var(--type-accent, var(--color-accent)) 55%, transparent);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}

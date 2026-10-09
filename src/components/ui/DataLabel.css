@@ -1,0 +1,36 @@
+.px-data {
+  display: grid;
+  gap: 0.15rem;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-0);
+}
+
+.px-data-term {
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-1);
+}
+
+.px-data-value {
+  font-size: 1.05rem;
+  color: var(--color-text-0);
+}
+
+.px-data-value[data-mono] {
+  font-family: var(--font-mono);
+}
+
+.px-data-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--color-accent) 60%, transparent);
+  text-underline-offset: 3px;
+}
+
+.px-data-link:hover {
+  color: var(--color-accent);
+}

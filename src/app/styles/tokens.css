@@ -1,0 +1,64 @@
+/**
+ * RC0 base tokens — the structural foundation.
+ * RC1 expands this into the full type-driven visual language.
+ */
+:root {
+  /* Base surfaces (deep archive background, not purple-gradient decoration) */
+  --color-bg-0: oklch(0.16 0.02 260);
+  --color-bg-1: oklch(0.2 0.025 260);
+  --color-surface-0: oklch(0.23 0.03 260);
+  --color-surface-1: oklch(0.27 0.035 260);
+  --color-text-0: oklch(0.93 0.01 260);
+  --color-text-1: oklch(0.72 0.02 260);
+  --color-border: oklch(0.35 0.03 260);
+  --color-accent: oklch(0.75 0.12 85);
+  --color-focus: oklch(0.8 0.14 85);
+
+  /* Type-driven ambient tokens (defaults; overridden per primary type from RC1) */
+  --type-primary: oklch(0.65 0.12 260);
+  --type-secondary: oklch(0.55 0.1 260);
+  --type-accent: oklch(0.8 0.12 85);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --font-ui: 'Inter', 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', ui-monospace, 'Cascadia Mono', monospace;
+
+  /* Fluid type scale */
+  --text-display: clamp(2rem, 1.2rem + 4vw, 3.5rem);
+  --text-title: clamp(1.4rem, 1.1rem + 1.6vw, 2rem);
+  --text-heading: clamp(1.1rem, 1rem + 0.6vw, 1.35rem);
+  --text-body: 1rem;
+  --text-label: 0.78rem;
+  --text-micro: 0.68rem;
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  /* Shape */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Motion
+   * fast: hover/focus feedback, micro-interactions (transform/opacity only).
+   * base: card tilt settle, panel transitions, foil fades.
+   * slow: stat-bar fills, scanner sweeps, entrance choreography.
+   * emphasized: spring-like overshoot for deliberate moments (never layout).
+   * Reduced motion zeroes all of the above via base.css.
+   */
+  --duration-fast: 120ms;
+  --duration-base: 220ms;
+  --duration-slow: 420ms;
+  --easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --easing-emphasized: cubic-bezier(0.3, 1.2, 0.4, 1);
+
+  /* Layout */
+  --layout-max: 72rem;
+  --header-height: 3.75rem;
+}

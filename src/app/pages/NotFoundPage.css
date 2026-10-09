@@ -1,0 +1,86 @@
+.not-found {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: clip;
+  padding-block: clamp(4rem, 12dvh, 8rem);
+  text-align: center;
+}
+
+.not-found-ghost {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: clamp(12rem, 34vw, 26rem);
+  font-weight: 700;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-border);
+  opacity: 0.5;
+  user-select: none;
+  pointer-events: none;
+}
+
+.not-found-panel {
+  position: relative;
+  display: grid;
+  gap: var(--space-sm);
+  justify-items: center;
+  max-width: 34rem;
+  padding: var(--space-xl) var(--space-lg);
+  background: color-mix(in oklch, var(--color-surface-1) 88%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+
+  /* Instrument corner ticks, echoing the specimen cards. */
+  --tick: var(--color-accent);
+  background-image:
+    linear-gradient(var(--tick), var(--tick)), linear-gradient(var(--tick), var(--tick)),
+    linear-gradient(var(--tick), var(--tick)), linear-gradient(var(--tick), var(--tick));
+  background-repeat: no-repeat;
+  background-size:
+    1.25rem 2px,
+    1.25rem 2px,
+    1.25rem 2px,
+    1.25rem 2px;
+  background-position:
+    0.75rem 0.75rem,
+    calc(100% - 0.75rem) 0.75rem,
+    0.75rem calc(100% - 0.75rem),
+    calc(100% - 0.75rem) calc(100% - 0.75rem);
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-title);
+  }
+
+  p {
+    color: var(--color-text-1);
+  }
+}
+
+.not-found-action {
+  display: inline-block;
+  margin-top: var(--space-xs);
+  padding: 0.75rem 1.5rem;
+  color: var(--color-text-0);
+  background: color-mix(in oklch, var(--color-accent) 26%, var(--color-surface-0));
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    background: color-mix(in oklch, var(--color-accent) 38%, var(--color-surface-0));
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .not-found-ghost {
+    opacity: 0.35;
+  }
+}
